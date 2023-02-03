@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}
+    All Tasks
+{% endblock title %}
+{% block body%}
+
+    <!-- For Form -->
+    <div id = "container" >
+        <form action="/" method="POST">
+        <h2 class="todo"> Add a Todo To the list</h2>
+        <div class="mb-3">
+            <label for="title" class="form-label">Title Of the Work To Do </label>
+            <input type="text" class="form-control" name='title' id="title" aria-describedby="emailHelp">
+
+        </div>
+        <div class="mb-3">
+            <label for="descrip" class="form-label">The Task You Want To Do</label>
+            <input type="text" class="form-control" name="description" id="description">
+            <div id="emailHelp" class="form-text"><strong> <center><h3>No pain No Gain <br /> Be Sure to Complete All of Your Listed Tasks</h3></center> </strong></div>
+        </div>
+        <button type="submit" class="btn btn-dark">Submit</button>
+        </form>
+    </div>
+    <!-- For Todo List-->
+    <div class="container my-5" >
+        <h1> List of Works To Be Done</h1>
+        <table class="table">
+          <thead>
+
+          </thead>
+          <tbody>
+          {% if todo|length == 0 %}
+              <div class="alert alert-dark" role="alert">
+                The List Of Tasks To Be Completed Is Empty . Please Add Some Tasks Now !
+              </div>
+
+          {% else %}
+              <thead>
+              <tr>
+              <th scope="col">S.N</th>
+              <th scope="col">Title</th>
+              <th scope="col">Description</th>
+              <th scope="col">Date and Time</th>
+              <th scope="col">Actions </th>
+              </tr>
+              </thead>
+
+          {% endif %}
+          {% for i in todo %}
+              <tr>
+              <th scope="row">{{ loop.index }}</th>
+              <td>{{ i.title }}</td>
+              <td>{{ i.description }}</td>
+              <td>{{ i.date }}</td>
+              <td>
+                   <a href="/Delete/{{i.sn }}" type="button" class="btn btn-outline-dark btn-sm mx-1 my-1 " >Delete</a>
+                   <a href="/update/{{i.sn }}" type="button" class="btn btn-outline-dark btn-sm mx-1 my=1">Update</a>
+
+              </td>
+            </tr>
+
+          {% endfor %}
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+{% endblock body%}
